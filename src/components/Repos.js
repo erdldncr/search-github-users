@@ -4,7 +4,29 @@ import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 const Repos = () => {
   const {repos} =React.useContext(GithubContext)
-  return <ExampleChart/>;
+
+let languages=repos.reduce((total,item)=>{
+  const {language}=item
+  if(!language){
+    return total
+  }
+  if(!total[language]){
+    total[language]={label:language,value:1}
+  }
+  total[language]={...total[language],value:total[language].value+1}
+  return total
+},{})
+languages=Object.values(languages)
+languages=languages.sort((a,b)=>a.value-b.value)
+languages=languages.length>5?languages.slice(0,5):languages
+console.log(languages)
+
+
+  return <section className="section">
+      <Wrapper className='section-center'>
+        <Pie3D data={languages} />
+      </Wrapper>
+  </section>;
 };
 
 const Wrapper = styled.div`
