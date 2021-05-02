@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
 const Card = () => {
   const {githubUser}=React.useContext(GithubContext)
-  console.log(githubUser)
-  const{login,avatar_url,html_url,name,blog,bio,location,twitter_username,following,followers,company}=githubUser
+
+  const{avatar_url,html_url,name,blog,bio,location,twitter_username,company}=githubUser
   return <Wrapper>
     <header>
       <img src={avatar_url} alt={name} />
