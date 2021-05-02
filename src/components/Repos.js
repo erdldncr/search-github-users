@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 const Repos = () => {
-  return <Wrapper>repos component</Wrapper>;
+  const {repos} =React.useContext(GithubContext)
+  return <ExampleChart/>;
 };
 
 const Wrapper = styled.div`
