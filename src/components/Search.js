@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
-import { GithubContext } from '../context/context';
+import { GithubContext} from '../context/context';
 const Search = () => {
   const [user,setUser]=useState('')
+  const {requests,error,searchGithubUser,isLoading}=useContext(GithubContext)
+ 
   ///get things from global
   const handleSubmit=(e)=>{
     e.preventDefault()
   if(user){
+    searchGithubUser(user)
 
   }
   }
   return <section className="section">
     <Wrapper className='section-center'>
+    {error.show&& <ErrorWrapper>
+      <p>{error.msg}</p>
+    </ErrorWrapper> }
       <form onSubmit={handleSubmit}>
         <div className="form-control">
           <MdSearch/>
@@ -20,11 +26,12 @@ const Search = () => {
           onChange={(e)=>setUser(e.target.value)}
           value={user}
            type="text"
-           placeholder='enter username'/> 
-          <button type="submit">Search</button>
+           placeholder='enter username'/>
+         
+         {requests>0&& !isLoading && <button type="submit">Search</button>}
         </div>
       </form>
-      <h3>requests:60/60</h3>
+      <h3>requests:{requests}/60</h3>
     </Wrapper>
   </section>
 };
@@ -108,6 +115,7 @@ const ErrorWrapper = styled.article`
   p {
     color: red;
     letter-spacing: var(--spacing);
+
   }
 `;
 export default Search;

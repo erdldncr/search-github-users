@@ -6,6 +6,7 @@ const Card = () => {
   const {githubUser}=React.useContext(GithubContext)
 
   const{avatar_url,html_url,name,blog,bio,location,twitter_username,company}=githubUser
+  
   return <Wrapper>
     <header>
       <img src={avatar_url} alt={name} />

@@ -27,21 +27,27 @@ const mostPopular=Object.values(languages).sort((a,b)=>b.stargazers_count-a.star
 })
 ////stars and forks
 
-let {stars,forks}=repos.filter(item=>item.stargazers_count===0).reduce((total,item)=>{
-  const {stargazers_count,name,forks}=item;
-  total.forks[forks]={label:name,value:forks}
-  total.stars[stargazers_count]={label:name,value:stargazers_count}
-  return total
-},{stars:{},forks:{}})
-stars=Object.values(stars).slice(-5).reverse()
-forks=Object.values(forks).slice(-5).reverse()
+let { stars, forks } = repos.reduce(
+  (total, item) => {
+    const { stargazers_count, name, forks } = item;
+    total.stars[stargazers_count] = { label: name, value: stargazers_count };
+    total.forks[forks] = { label: name, value: forks };
+    return total;
+  },
+  {
+    stars: {},
+    forks: {},
+  }
+);
+stars = Object.values(stars).slice(-5).reverse();
+forks = Object.values(forks).slice(-5).reverse();
 
   return <section className="section">
       <Wrapper className='section-center'>
         <Pie3D data={mostUsed} />
-        <div></div>
+        
         <Doughnut2D data={mostPopular}/>
-        <div></div>
+        
         <Column3D data={stars}/>
         <Bar3D data={forks}/>
       </Wrapper>
